@@ -49,6 +49,7 @@ bool Leaderboard::update(int score)
 		if (!done && score > vector_leaderboard[i].score)
 		{
 			std::string name;
+			std::cout << "You are on the leaderboard! What is your name?: ";
 			std::cin >> name;
 			writeto << name << "\t" << score << "\n";
 			done = 1;
@@ -59,6 +60,7 @@ bool Leaderboard::update(int score)
 		}
 	}
 	writeto.close();
+	std::cout << "\n";
 	if (done)
 	{
 		return 1;

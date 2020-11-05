@@ -14,7 +14,8 @@ int main()
 	leaderboard.get();
 	do
 	{
-		std::cout << "<1> Play Singleplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n";
+		std::cout << "<1> Play Singleplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n\n";
+		std::cout << "Choose an option: ";
 		std::cin >> choice;
 		std::cout << "\n";
 
@@ -28,7 +29,13 @@ int main()
 			return 0;
 		case 1:
 			single_score = playsingle();
-			leaderboard.update(single_score);
+			if (leaderboard.update(single_score))
+			{
+				leaderboard.get();
+				leaderboard.print();
+			}
+			system("pause");
+			std::cout << "\n";
 			break;
 		case 2:	//Local multiplayer; should pass vector instead of int
 			break;
@@ -45,7 +52,13 @@ int main()
 			leaderboard.reset();
 			break;
 		case 9: //debug leaderboard
-			leaderboard.update(999);
+			if (leaderboard.update(999))
+			{
+				leaderboard.get();
+				leaderboard.print();
+			}
+			system("pause");
+			std::cout << "\n";
 		}
 	} while (choice != 0);
 

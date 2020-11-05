@@ -39,7 +39,5 @@ int playsingle()
 	}
 	int score = player1.total_score();
 	std::cout << "Your final score is " << score << "!\n\n";
-	system("pause");
-	std::cout << "\n";
 	return score;
 } 
