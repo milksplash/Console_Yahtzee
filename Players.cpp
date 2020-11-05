@@ -117,16 +117,19 @@ int Players::get_combo_score(int combo)
 	case 10:	//Small Straight
 		for (int i = 1; i < 4; i++)
 		{
-			if (small_straight(i, i + 3))
+			if (straight_check(i, i + 3))
 			{
 				return 30;
 			}
 		}
 		return 0;
 	case 11:	//Large Straight
-		if (find_side_count(1) == 5)
+		for (int i = 1; i < 3; i++)
 		{
-			return 40;
+			if (straight_check(i, i + 4))
+			{
+				return 40;
+			}
 		}
 		return 0;
 	case 12:	//Chance
@@ -237,11 +240,11 @@ int Players::find_side_count(int x)
 	}
 	return count;
 }
-bool Players::small_straight(int i,int j)
+bool Players::straight_check(int i,int j)
 {
 	if (i < j && T_dice[i - 1] > 0)
 	{
-		return small_straight(i + 1, j);
+		return straight_check(i + 1, j);
 	}
 	else if (T_dice[i - 1] == 0)
 	{

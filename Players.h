@@ -48,7 +48,7 @@ class Players
 	int no_rolling_dice();
 	int bonus();
 	int find_side_count(int ele);
-	bool small_straight(int i = 1, int j = 4);
+	bool straight_check(int i = 1, int j = 4);
 public:
 	int roll_left = 3;
 	void roll_dice();
