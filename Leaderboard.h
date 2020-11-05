@@ -18,8 +18,9 @@ class Leaderboard
 public:
 	void get();
 	void print();
-	void update(int score);
+	bool update(int score);
 	void reset();
+	bool read_error();
 };
 
 #endif

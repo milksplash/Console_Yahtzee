@@ -11,16 +11,18 @@ int main()
 	int choice;
 	Leaderboard leaderboard;
 	print_logo();
+	leaderboard.get();
 	do
 	{
-		leaderboard.get();
+		std::cout << "<1> Play Singleplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
 		int single_score = 0;
 
-		std::cout << "1. Play Singleplayer\t4. Show Leaderboard\t5. Reset/Create Leaderboard\t0. Exit\n";
-		std::cin >> choice;
 		switch (choice)
 		{
-		case 0:	//Exit
+		case 0:
 			std::cout << "Goodbye...\n\n";
 			system("pause");
 			return 0;
@@ -33,12 +35,16 @@ int main()
 		case 3:	//Vs bot
 			break;
 		case 4:
-			leaderboard.print();
+			leaderboard.get();
+			if (!leaderboard.read_error())
+			{
+				leaderboard.print();
+			}
 			break;
 		case 5:
 			leaderboard.reset();
 			break;
-		case 9: //debug
+		case 9: //debug leaderboard
 			leaderboard.update(999);
 		}
 	} while (choice != 0);

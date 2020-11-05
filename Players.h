@@ -57,7 +57,7 @@ public:
 	void reset_dice();
 	int total_score(bool sum = 0);
 	friend class Debug;
-	friend void Leaderboard::update(int score);
+	friend bool Leaderboard::update(int score);
 };
 
 #endif
