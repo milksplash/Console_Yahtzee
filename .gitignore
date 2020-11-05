@@ -1,0 +1,7 @@
+.vs/
+Console_Yahtzee.sln
+Console_Yahtzee.vcxproj
+Console_Yahtzee.vcxproj.filters
+Console_Yahtzee.vcxproj.user
+Debug/
+*.txt
