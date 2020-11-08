@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include "Header.h"
 #include "Players.h"
+#include "Options.h"
 
 //Private
 void Players::update_T_dice()
@@ -33,11 +34,21 @@ int Players::side_total()
 }
 void Players::update_combo(int combo)
 {
+	int combo_score = get_combo_score(combo);
 	if (!scores[combo].taken)
 	{
-		scores[combo].taken = 1;
-		scores[combo].score = get_combo_score(combo);
-		roll_left = 0;
+		if (combo_score != 0)
+		{
+			scores[combo].taken = 1;
+			scores[combo].score = combo_score;
+			roll_left = 0;
+		}
+		else if ()
+		{
+			std::cout << "This combination will yield you 0 score, proceed?: ";
+			bool process;
+			std::cin >> ;
+		}
 	}
 	else
 	{

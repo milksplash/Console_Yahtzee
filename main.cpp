@@ -4,6 +4,7 @@
 #include "Header.h"
 #include "Players.h"
 #include "Leaderboard.h"
+#include "Options.h"
 
 int main()
 {
@@ -20,6 +21,7 @@ int main()
 		std::cout << "\n";
 
 		int single_score = 0;
+		int debug_score;
 
 		switch (choice)
 		{
@@ -52,7 +54,8 @@ int main()
 			leaderboard.reset();
 			break;
 		case 9: //debug leaderboard
-			if (leaderboard.update(999))
+			std::cin >> debug_score;
+			if (leaderboard.update(debug_score))
 			{
 				leaderboard.get();
 				leaderboard.print();
