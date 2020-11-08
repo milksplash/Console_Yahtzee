@@ -6,13 +6,28 @@
 #include "Leaderboard.h"
 #include "Options.h"
 
+void print_logo()
+{
+	std::cout << R"(
+          _______          _________ _______  _______  _______ 
+|\     /|(  ___  )|\     /|\__   __// ___   )(  ____ \(  ____ \
+( \   / )| (   ) || )   ( |   ) (   \/   )  || (    \/| (    \/
+ \ (_) / | (___) || (___) |   | |       /   )| (__    | (__    
+  \   /  |  ___  ||  ___  |   | |      /   / |  __)   |  __)   
+   ) (   | (   ) || (   ) |   | |     /   /  | (      | (      
+   | |   | )   ( || )   ( |   | |    /   (_/\| (____/\| (____/\
+   \_/   |/     \||/     \|   )_(   (_______/(_______/(_______/
+                                                               )" << "\n\n";
+}
+
 int main()
 {
 	srand(time(NULL));
-	int choice;
 	Leaderboard leaderboard;
 	print_logo();
 	leaderboard.get();
+
+	int choice;
 	do
 	{
 		std::cout << "<1> Play Singleplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n\n";

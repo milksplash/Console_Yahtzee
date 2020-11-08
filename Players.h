@@ -5,6 +5,7 @@
 #include <string>
 #include "Header.h"
 #include "Leaderboard.h"
+#include "Options.h"
 
 class Players
 {
@@ -36,6 +37,7 @@ class Players
 	};
 	std::vector<Dice> dice;
 	std::vector<int> T_dice = { 0,0,0,0,0,0 };
+	Options options;	//temp solution to options setting
 	void update_T_dice();
 	int side_total();
 	void choose_combo();
@@ -57,7 +59,6 @@ public:
 	void reset_dice();
 	int total_score(bool sum = 0);
 	friend class Debug;
-	friend bool Leaderboard::update(int score);
 };
 
 #endif

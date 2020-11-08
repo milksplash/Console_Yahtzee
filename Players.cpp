@@ -37,17 +37,28 @@ void Players::update_combo(int combo)
 	int combo_score = get_combo_score(combo);
 	if (!scores[combo].taken)
 	{
-		if (combo_score != 0)
+		if (combo_score == 0 && options.zero_confirm == 1)
+		{
+			std::cout << "This combination will yield you 0 score, proceed?: ";
+			bool proceed;
+			std::cin >> proceed;
+			std::cout << "\n";
+			if (proceed)
+			{
+				scores[combo].taken = 1;
+				scores[combo].score = combo_score;
+				roll_left = 0;
+			}
+			else
+			{
+				choose_combo();
+			}
+		}
+		else
 		{
 			scores[combo].taken = 1;
 			scores[combo].score = combo_score;
 			roll_left = 0;
-		}
-		else if ()
-		{
-			std::cout << "This combination will yield you 0 score, proceed?: ";
-			bool process;
-			std::cin >> ;
 		}
 	}
 	else

@@ -1,8 +1,12 @@
 #ifndef HEADER
 #define HEADER
 
-void print_logo();
+#include <vector>
 
 int playsingle();
+
+std::vector<int> playmulti();
+
+int playbot();
 
 #endif
