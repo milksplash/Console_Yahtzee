@@ -12,7 +12,7 @@ int playsingle()
 		player1.roll_left = 3;
 		while (player1.roll_left > 0) //3 rolls a round
 		{
-			std::cout << "Round " << i + 1 << ":\n";
+			std::cout << "Round " << i + 1 << ":\n\n";
 			player1.roll_dice();
 			player1.print_scoreboard();
 			player1.choose_swap();

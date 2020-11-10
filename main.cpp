@@ -5,20 +5,7 @@
 #include "Players.h"
 #include "Leaderboard.h"
 #include "Options.h"
-
-void print_logo()
-{
-	std::cout << R"(
-          _______          _________ _______  _______  _______ 
-|\     /|(  ___  )|\     /|\__   __// ___   )(  ____ \(  ____ \
-( \   / )| (   ) || )   ( |   ) (   \/   )  || (    \/| (    \/
- \ (_) / | (___) || (___) |   | |       /   )| (__    | (__    
-  \   /  |  ___  ||  ___  |   | |      /   / |  __)   |  __)   
-   ) (   | (   ) || (   ) |   | |     /   /  | (      | (      
-   | |   | )   ( || )   ( |   | |    /   (_/\| (____/\| (____/\
-   \_/   |/     \||/     \|   )_(   (_______/(_______/(_______/
-                                                               )" << "\n\n";
-}
+#include "Utility.h"
 
 int main()
 {
@@ -60,7 +47,7 @@ int main()
 			break;
 		case 4:
 			leaderboard.get();
-			if (!leaderboard.read_error())
+			if (!read_error("leaderboard.txt"))
 			{
 				leaderboard.print();
 			}

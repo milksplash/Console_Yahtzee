@@ -20,7 +20,6 @@ public:
 	void print();
 	bool update(int score);
 	void reset();
-	bool read_error();
 };
 
 #endif

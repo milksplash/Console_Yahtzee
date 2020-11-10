@@ -8,12 +8,9 @@ class Options
 	int difficulty;
 	Options()
 	{
-		language = 1;
-		zero_confirm = 1;
-		difficulty = 1;
+		get();
 	}
 	void get();
-	void update();
 	friend class Players;
 };
 

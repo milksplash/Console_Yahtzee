@@ -39,7 +39,7 @@ void Players::update_combo(int combo)
 	{
 		if (combo_score == 0 && options.zero_confirm == 1)
 		{
-			std::cout << "This combination will yield you 0 score, proceed?: ";
+			std::cout << "This combination will yield you 0 score, proceed?(1/0): ";
 			bool proceed;
 			std::cin >> proceed;
 			std::cout << "\n";
@@ -210,7 +210,7 @@ void Players::sort_dice()
 void Players::print_dice()
 {
 	int nrd = no_rolling_dice();
-	std::cout << "\nYou rolled:\n<1>\t<2>\t<3>\t<4>\t<5>\n";
+	std::cout << "You rolled:\n<1>\t<2>\t<3>\t<4>\t<5>\n";
 	for (int i = 0; i < dice.size(); i++)
 	{
 		if (i == 0 && nrd != 1)

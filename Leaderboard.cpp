@@ -3,10 +3,11 @@
 #include <fstream>
 #include <string>
 #include "Leaderboard.h"
+#include "Utility.h"
 
 void Leaderboard::get()
 {
-	if (read_error())
+	if (read_error("leaderboard.txt"))
 	{
 		std::cout << "Leaderboard file cannot be accessed. Use \"Reset Leaderboard\" to create a new one.\n\n";
 		return;
@@ -20,7 +21,7 @@ void Leaderboard::get()
 }
 void Leaderboard::print()
 {
-	if (read_error())
+	if (read_error("leaderboard.txt"))
 	{
 		std::cout << "Leaderboard file cannot be accessed. Use \"Reset Leaderboard\" to create a new one.\n\n";
 		return;
@@ -37,7 +38,7 @@ bool Leaderboard::update(int score)
 	//update Leaderboard with in score; 
 	//return 1 if leaderboard.txt is updated
 	//return 0 if not
-	if (read_error())
+	if (read_error("leaderboard.txt"))
 	{
 		std::cout << "Leaderboard file cannot be accessed. Use \"Reset Leaderboard\" to create a new one.\n\n";
 		return 0;
@@ -69,22 +70,15 @@ bool Leaderboard::update(int score)
 }
 void Leaderboard::reset()
 {
-	if (read_error())
+	if (read_error("leaderboard.txt"))
 	{
 		std::cout << "Leaderboard cannot be accessed. Creating a new one.\n\n";
 	}
-	std::ofstream writeto("leaderboard.txt");
-	writeto <<"Bill\t250\nJohn\t200\nMaria\t150\nMartin\t100\nPhilip\t50";
-	writeto.close();
-}
-bool Leaderboard::read_error()
-{
-	std::ifstream readfrom("leaderboard.txt");
-	if (!readfrom.is_open())
+	else
 	{
-		readfrom.close();
-		return 1;
+		std::cout << "Leaderboard reset.";
 	}
-	readfrom.close();
-	return 0;
+	std::ofstream writeto("leaderboard.txt");
+	writeto << "Bill\t250\nJohn\t200\nMaria\t150\nMartin\t100\nPhilip\t50";
+	writeto.close();
 }
