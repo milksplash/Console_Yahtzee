@@ -23,6 +23,7 @@ int main()
 		std::cout << "\n";
 
 		int single_score = 0;
+		std::vector<int> multi_score = { 0, 0 };
 		int debug_score;
 
 		switch (choice)
@@ -42,6 +43,9 @@ int main()
 			std::cout << "\n";
 			break;
 		case 2:	//Local multiplayer; should pass vector instead of int
+			multi_score = playmulti();
+			std::cout << multi_score[0] << "\t" << multi_score[1] << "\n\n";
+			system("pause");
 			break;
 		case 3:	//Vs bot
 			break;
