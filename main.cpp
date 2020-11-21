@@ -17,7 +17,7 @@ int main()
 	int choice;
 	do
 	{
-		std::cout << "<1> Play Singleplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n\n";
+		std::cout << "<1> Play Singleplayer\t<2> Play Multiplayer\t<4> Show Leaderboard\t<5> Reset Leaderboard\t<0> Exit\n\n";
 		std::cout << "Choose an option: ";
 		std::cin >> choice;
 		std::cout << "\n";

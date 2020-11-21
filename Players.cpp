@@ -167,27 +167,6 @@ int Players::get_combo_score(int combo)
 	}
 	return 0;
 }
-void Players::get_scoreboard_values()
-{
-	int sum = total_score(1);
-	int b = bonus();
-	for (int i = 0; i < 13; i++)
-	{
-		if (scores[i].taken)
-		{
-			std::cout << scores[i].score;
-		}
-		else
-		{
-			std::cout << "(" << get_combo_score(i) << ")";
-		}
-		if (i == 5)
-		{
-			std::cout << "\t" << sum << "\t" << b;
-		}
-		std::cout << "\t";
-	}
-}
 void Players::swap_dice(int die)
 {
 	// if total number of dice holding is 4 and user is trying to hold another die, return
@@ -294,14 +273,42 @@ void Players::roll_dice()
 	std::cout << "You have " << roll_left << " roll(s) left.\n\n";
 
 }
-void Players::print_scoreboard()
+void Players::print_scoreboard(bool mode)
 {
+	//0 = default for singleplayer; 1 = multiplayer/bot
 	std::cout << "\t<1>\t<2>\t<3>\t<4>\t<5>\t<6>\t\t\t<7>\t<8>\t<9>\t<10>\t<11>\t<12>\t<13>\n";
 	std::cout << "\tOnes\tTwos\tThrees\tFours\tFives\tSixes\tSum\tBonus\tToak\tFoak\tFh\tSs\tLs\tC.\tY.\tTotal\n";
 	std::cout << "========================================================================================================================================\n";
-	std::cout << "You\t";
-	get_scoreboard_values();
-	std::cout << total_score() << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
+	if (mode == 0)
+	{
+		std::cout << "You\t";
+		print_scoreboard_values();
+		std::cout << total_score() << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
+	}
+}
+void Players::print_scoreboard_values(bool mode)
+{
+	int sum = total_score(1);
+	int b = bonus();
+	for (int i = 0; i < 13; i++)
+	{
+		if (scores[i].taken)
+		{
+			std::cout << scores[i].score;
+		}
+		else
+		{
+			if (mode == 0)
+			{
+				std::cout << "(" << get_combo_score(i) << ")";
+			}
+		}
+		if (i == 5) //Add sum score after the Sixes score
+		{
+			std::cout << "\t" << sum << "\t" << b;
+		}
+		std::cout << "\t";
+	}
 }
 void Players::choose_swap()
 {

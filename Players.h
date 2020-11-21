@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include "Header.h"
 #include "Leaderboard.h"
 #include "Options.h"
 
@@ -43,7 +42,6 @@ class Players
 	void choose_combo();
 	void update_combo(int combo);
 	int get_combo_score(int combo);
-	void get_scoreboard_values();
 	void swap_dice(int die);
 	void sort_dice();
 	void print_dice();
@@ -54,7 +52,8 @@ class Players
 public:
 	int roll_left = 3;
 	void roll_dice();
-	void print_scoreboard();
+	void print_scoreboard(bool mode = 0);
+	void print_scoreboard_values(bool mode = 0);
 	void choose_swap();
 	void reset_dice();
 	int total_score(bool sum = 0);

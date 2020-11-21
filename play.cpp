@@ -46,8 +46,12 @@ std::vector<int> playmulti()
 		while (player1.roll_left > 0)
 		{
 			player1.roll_dice();
-			player1.print_scoreboard();
+
+			player1.print_scoreboard(1);
+			extended_scoreboard(player1, player2, 0);
+
 			player1.choose_swap();
+
 			if (i < 12)
 			{
 				system("pause");
@@ -59,8 +63,11 @@ std::vector<int> playmulti()
 		while (player2.roll_left > 0)
 		{
 			player2.roll_dice();
-			player2.print_scoreboard();
+			player2.print_scoreboard(1);
+			extended_scoreboard(player1, player2, 1);
+
 			player2.choose_swap();
+
 			if (i < 12)
 			{
 				system("pause");
@@ -80,4 +87,14 @@ int playbot()
 	Players bot;
 	int score = 0;
 	return score;
+}
+
+void extended_scoreboard(Players player1, Players player2, bool mode)
+{
+	std::cout << "P1\t";
+	player1.print_scoreboard_values(mode);
+	std::cout << player1.total_score() << "\n";
+	std::cout << "P2\t";
+	player2.print_scoreboard_values(!mode);
+	std::cout << player2.total_score() << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
 }
