@@ -76,7 +76,7 @@ void Leaderboard::reset()
 	}
 	else
 	{
-		std::cout << "Leaderboard reset.";
+		std::cout << "Leaderboard reset.\n\n";
 	}
 	std::ofstream writeto("leaderboard.txt");
 	writeto << "Bill\t250\nJohn\t200\nMaria\t150\nMartin\t100\nPhilip\t50";
