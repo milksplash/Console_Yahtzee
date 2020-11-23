@@ -78,7 +78,7 @@ std::vector<int> playmulti()
 	}
 	scores[0] = player1.total_score();
 	scores[1] = player2.total_score();
-	std::cout << "Player 1 got " << scores[0] << " score and Player 2 got " << scores[1] << " score.\n";
+	std::cout << "Player 1 got a score of " << scores[0] << " and Player 2 got a score of " << scores[1] << ".\n";
 	std::cout << "Player " << ((scores[0] < scores[1] ? 2 : 1)) << " win!\n\n";
 	return scores;
 }

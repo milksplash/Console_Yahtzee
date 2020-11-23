@@ -42,10 +42,10 @@ int main()
 			system("pause");
 			std::cout << "\n";
 			break;
-		case 2:	//Local multiplayer; should pass vector instead of int
+		case 2:	//Local multiplayer
 			multi_score = playmulti();
-			std::cout << multi_score[0] << "\t" << multi_score[1] << "\n\n";
 			system("pause");
+			std::cout << "\n";
 			break;
 		case 3:	//Vs bot
 			break;
