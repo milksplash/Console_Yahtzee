@@ -72,6 +72,11 @@ void Players::choose_combo()
 	int choice;
 	std::cout << "Choose a combination: ";
 	std::cin >> choice;
+	if (choice > 14)
+	{
+		choose_combo();
+		return;
+	}
 	std::cout << "\n";
 	switch (choice)
 	{
@@ -288,6 +293,7 @@ void Players::print_scoreboard(bool mode)
 }
 void Players::print_scoreboard_values(bool mode)
 {
+	//mode 0 (default): display potential scores; mode 1: no
 	int sum = total_score(1);
 	int b = bonus();
 	for (int i = 0; i < 13; i++)

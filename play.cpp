@@ -34,7 +34,7 @@ std::vector<int> playmulti()
 	Players player2;
 	std::vector<int> scores = { 0, 0 };
 
-	for (int i = 0; i < 1; i++) //round number altered
+	for (int i = 0; i < 13; i++)
 	{
 		player1.reset_dice();
 		player2.reset_dice();
@@ -63,6 +63,7 @@ std::vector<int> playmulti()
 		while (player2.roll_left > 0)
 		{
 			player2.roll_dice();
+
 			player2.print_scoreboard(1);
 			extended_scoreboard(player1, player2, 1);
 
@@ -75,9 +76,10 @@ std::vector<int> playmulti()
 			}
 		}
 	}
-
 	scores[0] = player1.total_score();
 	scores[1] = player2.total_score();
+	std::cout << "Player 1 got " << scores[0] << " score and Player 2 got " << scores[1] << " score.\n";
+	std::cout << "Player " << ((scores[0] < scores[1] ? 2 : 1)) << " win!\n\n";
 	return scores;
 }
 
