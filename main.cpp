@@ -23,8 +23,9 @@ int main()
 		std::cout << "\n";
 
 		int single_score = 0;
-		std::vector<int> multi_score = { 0, 0 };
+		std::vector<int> multi_scores = { 0, 0 };
 		int debug_score;
+		std::vector<int> debug_scores = { 0, 0 };
 
 		switch (choice)
 		{
@@ -43,7 +44,14 @@ int main()
 			std::cout << "\n";
 			break;
 		case 2:	//Local multiplayer
-			multi_score = playmulti();
+			multi_scores = playmulti();
+			if (leaderboard.update(std::max(multi_scores[0], multi_scores[1]), 1, (multi_scores[0] < multi_scores[1] ? 1 : 0)))
+			{
+				leaderboard.get();
+				leaderboard.update(std::min(multi_scores[0], multi_scores[1]), 1, (multi_scores[0] < multi_scores[1] ? 0 : 1));
+				leaderboard.get();
+				leaderboard.print();
+			}
 			system("pause");
 			std::cout << "\n";
 			break;
@@ -60,7 +68,7 @@ int main()
 			leaderboard.reset();
 			break;
 		case 9: //debug leaderboard
-			std::cout << "Leaderboard debug mode (enter score): ";
+			std::cout << "Leaderboard debug mode 1(enter score): ";
 			std::cin >> debug_score;
 			if (leaderboard.update(debug_score))
 			{
@@ -69,7 +77,19 @@ int main()
 			}
 			system("pause");
 			std::cout << "\n";
+			break;
+		case 10: //debug multiplayer leaderboard
+			std::cout << "Leaderboard debug mode 2(enter 2 scores): ";
+			std::cin >> debug_scores[0] >> debug_scores[1];
+			if (leaderboard.update(std::max(debug_scores[0], debug_scores[1]), 1, (debug_scores[0] < debug_scores[1] ? 1 : 0)))
+			{
+				leaderboard.get();
+				leaderboard.update(std::min(debug_scores[0], debug_scores[1]), 1, (debug_scores[0] < debug_scores[1] ? 0 : 1));
+				leaderboard.get();
+				leaderboard.print();
+			}
+			system("pause");
+			std::cout << "\n";
 		}
 	} while (choice != 0);
-
 }

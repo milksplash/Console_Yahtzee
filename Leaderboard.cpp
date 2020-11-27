@@ -33,11 +33,21 @@ void Leaderboard::print()
 	}
 	std::cout << "\n";
 }
-bool Leaderboard::update(int score)
+bool Leaderboard::update(int score, bool mode, bool player_id)
 {
-	//update Leaderboard with in score; 
-	//return 1 if leaderboard.txt is updated
-	//return 0 if not
+	/*
+	update Leaderboard with int score:
+	return 1 if leaderboard.txt is updated
+	return 0 if not
+
+	mode:
+	mode 0 = singleplayer (or bot)
+	mode 1 = multiplayer
+
+	player_id:
+	player_id 0 = Player 1;
+	palyer_id 1 = Player 2;
+	*/
 	if (read_error("leaderboard.txt"))
 	{
 		std::cout << "Leaderboard file cannot be accessed. Use \"Reset Leaderboard\" to create a new one.\n\n";
@@ -47,7 +57,7 @@ bool Leaderboard::update(int score)
 	bool done = 0;
 	for (int i = 0; i < 5; i++)
 	{
-		if (!done && score > vector_leaderboard[i].score && done == 0)
+		if (!done && score > vector_leaderboard[i].score)
 		{
 			for (int j = 4; j > i; j--)
 			{
@@ -58,7 +68,14 @@ bool Leaderboard::update(int score)
 				}
 			}
 			std::string name;
-			std::cout << "You are on the leaderboard! What is your name?: ";
+			if (mode == 0)
+			{
+				std::cout << "You are on the leaderboard! What is your name?: ";
+			}
+			else
+			{
+				std::cout << "Player " << player_id + 1 << ", you are on the leaderboard! Enter your name: ";
+			}
 			std::cin >> name;
 			writeto << name << "\t" << score << "\n";
 			done = 1;
