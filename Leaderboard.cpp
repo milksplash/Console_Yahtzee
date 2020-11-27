@@ -47,8 +47,16 @@ bool Leaderboard::update(int score)
 	bool done = 0;
 	for (int i = 0; i < 5; i++)
 	{
-		if (!done && score > vector_leaderboard[i].score)
+		if (!done && score > vector_leaderboard[i].score && done == 0)
 		{
+			for (int j = 4; j > i; j--)
+			{
+				if (i < 4)
+				{
+					vector_leaderboard[j].name = vector_leaderboard[j - 1].name;
+					vector_leaderboard[j].score = vector_leaderboard[j - 1].score;
+				}
+			}
 			std::string name;
 			std::cout << "You are on the leaderboard! What is your name?: ";
 			std::cin >> name;

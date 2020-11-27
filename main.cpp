@@ -60,6 +60,7 @@ int main()
 			leaderboard.reset();
 			break;
 		case 9: //debug leaderboard
+			std::cout << "Leaderboard debug mode (enter score): ";
 			std::cin >> debug_score;
 			if (leaderboard.update(debug_score))
 			{
