@@ -93,6 +93,11 @@ int playbot()
 
 void extended_scoreboard(Players player1, Players player2, bool mode)
 {
+	/*
+	scoreboard plugin to modify scoreboard for use of multiplayer
+	mode 0 = Player 1 is in control
+	mode 1 = Player 2 is in control
+	*/
 	std::cout << "P1\t";
 	player1.print_scoreboard_values(mode);
 	std::cout << player1.total_score() << "\n";

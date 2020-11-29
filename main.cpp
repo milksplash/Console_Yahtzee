@@ -6,11 +6,13 @@
 #include "Leaderboard.h"
 #include "Options.h"
 #include "Utility.h"
+#include "Debug.h"
 
 int main()
 {
 	srand(time(NULL));
 	Leaderboard leaderboard;
+	Debug debug;
 	print_logo();
 	leaderboard.get();
 
@@ -67,7 +69,7 @@ int main()
 		case 5:
 			leaderboard.reset();
 			break;
-		case 9: //debug leaderboard
+		case 99: //debug leaderboard
 			std::cout << "Leaderboard debug mode 1(enter score): ";
 			std::cin >> debug_score;
 			if (leaderboard.update(debug_score))
@@ -78,7 +80,7 @@ int main()
 			system("pause");
 			std::cout << "\n";
 			break;
-		case 10: //debug multiplayer leaderboard
+		case 999: //debug multiplayer leaderboard
 			std::cout << "Leaderboard debug mode 2(enter 2 scores): ";
 			std::cin >> debug_scores[0] >> debug_scores[1];
 			if (leaderboard.update(std::max(debug_scores[0], debug_scores[1]), 1, (debug_scores[0] < debug_scores[1] ? 1 : 0)))
@@ -88,6 +90,11 @@ int main()
 				leaderboard.get();
 				leaderboard.print();
 			}
+			system("pause");
+			std::cout << "\n";
+		case 9999: //debug singleplayer with controlled dice roll
+			std::cout << "Entering debug mode...\n";
+			debug.debug_play();
 			system("pause");
 			std::cout << "\n";
 		}
