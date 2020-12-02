@@ -280,7 +280,6 @@ int Players::yahtzee_check()
 		if (scores[12].taken == 1)
 		{
 			std::cout << "You have rolled more than one Yahtzee!\nYou have earned an extra 100 scores.\n\n";
-			scores[12].score += 100;
 			int p = std::find(T_dice.begin(), T_dice.end(), 5) - T_dice.begin();
 			if (scores[p].taken == 0)
 			{
@@ -307,8 +306,6 @@ int Players::yahtzee_check()
 					break;
 				}
 				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
-				scores[p].score = get_combo_score(p);
-				scores[p].taken = 1;
 				return 1;
 			}
 			else

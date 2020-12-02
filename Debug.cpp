@@ -77,11 +77,15 @@ void Debug::debug_play()
 				player1.choose_combo();
 				break;
 			case 1:
+				player1.scores[12].score += 100;
 				player1.print_scoreboard(2);
+				player1.scores[p].score = player1.get_combo_score(p);
+				player1.scores[p].taken = 1;
 				player1.roll_left = 0;
 				system("pause");
 				break;
 			case 2:
+				player1.scores[12].score += 100;
 				player1.print_scoreboard(3);
 				player1.choose_combo(1);
 			}
