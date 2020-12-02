@@ -62,23 +62,29 @@ void Debug::debug_play()
 {
 	Players player1;
 
-	for (int i = 0; i < 13; i++) //13 rounds
+	for (int i = 0; i < 13; i++)
 	{
 		player1.reset_dice();
 		player1.roll_left = 3;
 		std::cout << "Round " << i + 1 << ":\n\n";
-		while (player1.roll_left > 0) //3 rolls a round
+		while (player1.roll_left > 0)
 		{
 			fake_roll(player1);
-			player1.print_scoreboard();
-			player1.choose_combo();
-			/*
-			if (i < 12)
+			switch (player1.yahtzee_check())
 			{
+			case 0:
+				player1.print_scoreboard();
+				player1.choose_combo();
+				break;
+			case 1:
+				player1.print_scoreboard(2);
+				player1.roll_left = 0;
 				system("pause");
-				std::cout << "\n";
+				break;
+			case 2:
+				player1.print_scoreboard(3);
+				player1.choose_combo(1);
 			}
-			*/
 		}
 	}
 	int score = player1.total_score();
