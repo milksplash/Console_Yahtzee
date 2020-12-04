@@ -39,7 +39,7 @@ void Players::update_combo(int combo, bool myahtzee)
 	{
 		if (combo_score == 0 && options.zero_confirm == 1)
 		{
-			std::cout << "This combination will yield you 0 score, proceed?(1/0): ";
+			std::cout << "This combination will yield you 0 score, proceed? (1/0): ";
 			bool proceed;
 			std::cin >> proceed;
 			std::cout << "\n";
@@ -267,64 +267,6 @@ bool Players::straight_check(int i,int j)
 	}
 	return 1;
 }
-int Players::yahtzee_check()
-{
-	/*
-	return 0: there is no multiple yahtzee
-	return 1: there is a multiple yahtzee, corresponding upper category not filled
-	return 2: there is a multiple yahtzee, corresponding upper category filled
-	*/
-	if (find_side_count(5) > 0)
-	{
-		std::cout << "Yahtzee!\n\n";
-		if (scores[12].taken == 1)
-		{
-			std::cout << "You have rolled more than one Yahtzee!\nYou have earned an extra 100 scores.\n\n";
-			scores[12].score += 100;
-			int p = std::find(T_dice.begin(), T_dice.end(), 5) - T_dice.begin();
-			if (scores[p].taken == 0)
-			{
-				std::string N;
-				switch (p)
-				{
-				case 0:
-					N = "Ones";
-					break;
-				case 1:
-					N = "Twos";
-					break;
-				case 2:
-					N = "Threes";
-					break;
-				case 3:
-					N = "Fours";
-					break;
-				case 4:
-					N = "Fives";
-					break;
-				case 5:
-					N = "Sixes";
-					break;
-				}
-				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
-				scores[p].score = get_combo_score(p);
-				scores[p].taken = 1;
-				print_scoreboard(2);
-				roll_left = 0;
-				system("pause");
-				return 1;
-			}
-			else
-			{
-				std::cout << "You can also select any category that is not filled yet.\n\n";
-				print_scoreboard(3);
-				choose_combo(1);
-				return 2;
-			}
-		}
-	}
-	return 0;
-}
 
 //Public
 void Players::roll_dice()
@@ -482,4 +424,62 @@ int	Players::total_score(bool sum)
 		score += scores[i].score;
 	}
 	return score;
+}
+int Players::yahtzee_check()
+{
+	/*
+	return 0: there is no multiple yahtzee
+	return 1: there is a multiple yahtzee, corresponding upper category not filled
+	return 2: there is a multiple yahtzee, corresponding upper category filled
+	*/
+	if (find_side_count(5) > 0)
+	{
+		std::cout << "Yahtzee!\n\n";
+		if (scores[12].taken == 1)
+		{
+			std::cout << "You have rolled more than one Yahtzee!\nYou have earned an extra 100 scores.\n\n";
+			scores[12].score += 100;
+			int p = std::find(T_dice.begin(), T_dice.end(), 5) - T_dice.begin();
+			if (scores[p].taken == 0)
+			{
+				std::string N;
+				switch (p)
+				{
+				case 0:
+					N = "Ones";
+					break;
+				case 1:
+					N = "Twos";
+					break;
+				case 2:
+					N = "Threes";
+					break;
+				case 3:
+					N = "Fours";
+					break;
+				case 4:
+					N = "Fives";
+					break;
+				case 5:
+					N = "Sixes";
+					break;
+				}
+				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
+				scores[p].score = get_combo_score(p);
+				scores[p].taken = 1;
+				print_scoreboard(2);
+				roll_left = 0;
+				system("pause");
+				return 1;
+			}
+			else
+			{
+				std::cout << "You can also select any category that is not filled yet.\n\n";
+				print_scoreboard(3);
+				choose_combo(1);
+				return 2;
+			}
+		}
+	}
+	return 0;
 }

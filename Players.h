@@ -49,7 +49,6 @@ class Players
 	int bonus();
 	int find_side_count(int ele);
 	bool straight_check(int i = 1, int j = 4);
-	int yahtzee_check();
 public:
 	int roll_left = 3;
 	void roll_dice();
@@ -58,6 +57,7 @@ public:
 	void choose_swap();
 	void reset_dice();
 	int total_score(bool sum = 0);
+	int yahtzee_check();
 	friend class Debug;
 };
 

@@ -6,16 +6,19 @@ int playsingle()
 {
 	Players player1;
 	
-	for (int i = 0; i < 13; i++) //13 rounds
+	for (int i = 0; i < 13; i++)
 	{
 		player1.reset_dice();
 		player1.roll_left = 3;
 		std::cout << "Round " << i + 1 << ":\n\n";
-		while (player1.roll_left > 0) //3 rolls a round
+		while (player1.roll_left > 0)
 		{
 			player1.roll_dice();
-			player1.print_scoreboard();
-			player1.choose_swap();
+			if (player1.yahtzee_check() == 0)
+			{
+				player1.print_scoreboard();
+				player1.choose_swap();
+			}
 			if (i < 12)
 			{
 				system("pause");
