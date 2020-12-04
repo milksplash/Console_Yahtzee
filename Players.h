@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "Header.h"
 #include "Leaderboard.h"
+#include "Options.h"
 
 class Players
 {
@@ -36,12 +36,12 @@ class Players
 	};
 	std::vector<Dice> dice;
 	std::vector<int> T_dice = { 0,0,0,0,0,0 };
+	Options options;	//temp solution to options setting
 	void update_T_dice();
 	int side_total();
-	void choose_combo();
-	void update_combo(int combo);
-	int get_combo_score(int combo);
-	void get_scoreboard_values();
+	void choose_combo(bool myahtzee = 0);
+	void update_combo(int combo, bool myahtzee = 0);
+	int get_combo_score(int combo, bool myahtzee = 0);
 	void swap_dice(int die);
 	void sort_dice();
 	void print_dice();
@@ -49,15 +49,16 @@ class Players
 	int bonus();
 	int find_side_count(int ele);
 	bool straight_check(int i = 1, int j = 4);
+	int yahtzee_check();
 public:
 	int roll_left = 3;
 	void roll_dice();
-	void print_scoreboard();
+	void print_scoreboard(int mode = 0);
+	void print_scoreboard_values(int mode = 0);
 	void choose_swap();
 	void reset_dice();
 	int total_score(bool sum = 0);
 	friend class Debug;
-	friend bool Leaderboard::update(int score);
 };
 
 #endif
