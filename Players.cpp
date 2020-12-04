@@ -309,16 +309,21 @@ int Players::yahtzee_check()
 				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
 				scores[p].score = get_combo_score(p);
 				scores[p].taken = 1;
+				print_scoreboard(2);
+				roll_left = 0;
+				system("pause");
 				return 1;
 			}
 			else
 			{
-				std::cout << "You can select any category that is not filled yet.\n\n";
+				std::cout << "You can also select any category that is not filled yet.\n\n";
+				print_scoreboard(3);
+				choose_combo(1);
 				return 2;
 			}
 		}
-		return 0;
 	}
+	return 0;
 }
 
 //Public

@@ -70,20 +70,10 @@ void Debug::debug_play()
 		while (player1.roll_left > 0)
 		{
 			fake_roll(player1);
-			switch (player1.yahtzee_check())
+			if (player1.yahtzee_check() == 0)
 			{
-			case 0:
-				player1.print_scoreboard();
-				player1.choose_combo();
-				break;
-			case 1:
-				player1.print_scoreboard(2);
-				player1.roll_left = 0;
-				system("pause");
-				break;
-			case 2:
-				player1.print_scoreboard(3);
-				player1.choose_combo(1);
+			player1.print_scoreboard();
+			player1.choose_combo();
 			}
 		}
 	}
