@@ -287,6 +287,39 @@ void Players::roll_dice()
 	std::cout << "You have " << roll_left << " roll(s) left.\n\n";
 
 }
+
+void Players::print_scoreboard_new(bool size, bool instr, int score)
+{
+	/*
+	scoreboard size:
+	0 = 1 row of scores, complete for singleplayer (default)
+	1 = 2 rows of scores, not complete and ready to connect function extended_scoreboard
+	display numeral instruction? (e.g. <1> for Ones)
+	0 = do not display instruction
+	1 = do display instruction (default)
+	what potential score should be displayed? (only in effect when size = 0)
+	0 = display potential score (default)
+	1 = do not display potential score
+	2 = multiple yahtzee superset mode
+	*/
+	if (instr == 1)
+	{
+		std::cout << "\t<1>\t<2>\t<3>\t<4>\t<5>\t<6>\t\t\t<7>\t<8>\t<9>\t<10>\t<11>\t<12>\t<13>\n";
+	}
+	std::cout << "\tOnes\tTwos\tThrees\tFours\tFives\tSixes\tSum\tBonus\tToak\tFoak\tFh\tSs\tLs\tC.\tY.\tTotal\n";
+	std::cout << "========================================================================================================================================\n";
+	if (size == 0)
+	{
+		std::cout << "You\t";
+		print_scoreboard_values(score);
+		std::cout << total_score();
+		if (instr == 1)
+		{
+			std::cout << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)";
+		}
+		std::cout << "\n\n";
+	}
+}
 void Players::print_scoreboard(int mode)
 {
 	/*
@@ -322,13 +355,14 @@ void Players::print_scoreboard(int mode)
 		std::cout << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
 	}
 }
+
 void Players::print_scoreboard_values(int mode)
 {
 	/*
 	mode 0: display potential scores (default)
 	mode 1: do not display potential scores
 	mode 2: multiple yahtzee superset mode
-	!! total_score is used in bonus function
+	!! total_score function is used in bonus function
 	!! cannot be broken down
 	*/
 	int sum = total_score(1);
@@ -358,11 +392,11 @@ void Players::print_scoreboard_values(int mode)
 		std::cout << "\t";
 	}
 }
-void Players::choose_swap()
+void Players::choose_swap(bool myahtzee)
 {
 	if (roll_left == 0)
 	{
-		choose_combo();
+		choose_combo(myahtzee);
 		return;
 	}
 	std::cout << "Choose a die to hold/free: ";
@@ -371,7 +405,7 @@ void Players::choose_swap()
 	std::cout << "\n";
 	if (die == 0)
 	{
-		choose_combo();
+		choose_combo(myahtzee);
 		return;
 	}
 	if (die == 14)
@@ -379,18 +413,18 @@ void Players::choose_swap()
 		if (roll_left == 0)
 		{
 			std::cout << "You have no roll left this round! You must choose a combination.\n\n";
-			choose_combo();
+			choose_combo(myahtzee);
 			return;
 		}
 		return;
 	}
 	if (die > 5)
 	{
-		choose_swap();
+		choose_swap(myahtzee);
 		return;
 	}
 	swap_dice(die - 1);
-	choose_swap();
+	choose_swap(myahtzee);
 }
 void Players::reset_dice()
 {
@@ -425,9 +459,77 @@ int	Players::total_score(bool sum)
 	}
 	return score;
 }
-int Players::yahtzee_check()
+
+int Players::yahtzee_check_new(bool mode)
 {
 	/*
+	mode 0: singleplayer (default)
+	mode 1: multiplayer
+	return 11: need extended_scoreboard(
+	return 12: need extended_scoreboard(
+	*/
+	if (find_side_count(5) > 0)
+	{
+		std::cout << "Yahtzee!\n\n";
+		if (scores[12].taken == 1)
+		{
+			std::cout << "You have rolled more than one Yahtzee!\nYou have earned an extra 100 scores.\n\n";
+			scores[12].score += 100;
+			int p = std::find(T_dice.begin(), T_dice.end(), 5) - T_dice.begin();
+			if (scores[p].taken == 0)
+			{
+				std::string N;
+				switch (p)
+				{
+				case 0:
+					N = "Ones";
+					break;
+				case 1:
+					N = "Twos";
+					break;
+				case 2:
+					N = "Threes";
+					break;
+				case 3:
+					N = "Fours";
+					break;
+				case 4:
+					N = "Fives";
+					break;
+				case 5:
+					N = "Sixes";
+					break;
+				}
+				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
+				scores[p].score = get_combo_score(p);
+				scores[p].taken = 1;
+				print_scoreboard_new(mode, 0, 1);
+				roll_left = 0;
+				if (mode == 1)
+				{
+					return 11;
+				}
+				return 1;
+			}
+			else
+			{
+				std::cout << "You can also select any category that is not filled yet.\n\n";
+				print_scoreboard_new(mode, 1, 2);
+				if (mode == 1)
+				{
+					return 21;
+				}
+				return 2;
+			}
+		}
+	}
+	return 0;
+}
+int Players::yahtzee_check(bool mode)
+{
+	/*
+	mode 0: singleplayer
+	mode 1: multiplayer
 	return 0: there is no multiple yahtzee
 	return 1: there is a multiple yahtzee, corresponding upper category not filled
 	return 2: there is a multiple yahtzee, corresponding upper category filled

@@ -14,6 +14,7 @@ public:
 	
 	void fake_roll(Players &player);
 	void debug_play();
+	void debug_play2();
 };
 
 #endif

@@ -97,6 +97,11 @@ int main()
 			debug.debug_play();
 			system("pause");
 			std::cout << "\n";
+		case 99999:
+			std::cout << "Entering debug mode...\n";
+			debug.debug_play2();
+			system("pause");
+			std::cout << "\n";
 		}
 	} while (choice != 0);
 }

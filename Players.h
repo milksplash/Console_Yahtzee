@@ -52,12 +52,14 @@ class Players
 public:
 	int roll_left = 3;
 	void roll_dice();
+	void print_scoreboard_new(bool size = 0, bool instr = 1, int score = 0);
 	void print_scoreboard(int mode = 0);
 	void print_scoreboard_values(int mode = 0);
-	void choose_swap();
+	void choose_swap(bool myahtzee = 0);
 	void reset_dice();
 	int total_score(bool sum = 0);
-	int yahtzee_check();
+	int yahtzee_check_new(bool mode = 0);
+	int yahtzee_check(bool mode = 0);
 	friend class Debug;
 };
 

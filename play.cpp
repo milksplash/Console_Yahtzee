@@ -108,3 +108,28 @@ void extended_scoreboard(Players player1, Players player2, bool mode)
 	player2.print_scoreboard_values(!mode);
 	std::cout << player2.total_score() << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
 }
+
+void extended_scoreboard_new(Players player1, int player1_mode, Players player2, int player2_mode, bool instr)
+{
+	/*
+	mode 0: display potential scores
+	mode 1: do not display potential scores
+	mode 2: multiple yahtzee superset mode
+	instr 0: do not show instructions
+	instr 1: do show instructions
+	*/
+
+	std::cout << "P1\t";
+	player1.print_scoreboard_values(player1_mode);
+	std::cout << player1.total_score() << "\n";
+
+	std::cout << "P2\t";
+	player2.print_scoreboard_values(player2_mode);
+	std::cout << player2.total_score();
+
+	if (instr == 1)
+	{
+		std::cout << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)";
+	}
+	std::cout << "\n\n";
+}
