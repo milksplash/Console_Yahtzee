@@ -60,7 +60,11 @@ public:
 	int total_score(bool sum = 0);
 	int yahtzee_check_new(bool mode = 0);
 	int yahtzee_check(bool mode = 0);
+
 	friend class Debug;
+	friend int playsingle();
+	friend std::vector<int> playmulti();
+	friend int playbot();
 };
 
 #endif

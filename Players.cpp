@@ -448,7 +448,7 @@ int	Players::total_score(bool sum)
 	{
 		return score;
 	}
-	if (score > 63)
+	if (score > 62)
 	{
 		score += 35;
 	}

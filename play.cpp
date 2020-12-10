@@ -14,16 +14,21 @@ int playsingle()
 		while (player1.roll_left > 0)
 		{
 			player1.roll_dice();
-			if (player1.yahtzee_check() == 0)
+			switch (player1.yahtzee_check_new())
 			{
-				player1.print_scoreboard();
+			case 0:
+				player1.print_scoreboard_new();
 				player1.choose_swap();
-			}
-			if (i < 12)
-			{
+				break;
+			case 1:
 				system("pause");
-				std::cout << "\n";
+				break;
+			case 2:
+				player1.choose_combo(1);
+				break;
 			}
+			system("pause");
+			std::cout << "\n";
 		}
 	}
 	int score = player1.total_score();
@@ -49,34 +54,48 @@ std::vector<int> playmulti()
 		while (player1.roll_left > 0)
 		{
 			player1.roll_dice();
-
-			player1.print_scoreboard(1);
-			extended_scoreboard(player1, player2, 0);
-
-			player1.choose_swap();
-
-			if (i < 12)
+			switch (player1.yahtzee_check_new(1))
 			{
+			case 0:
+				player1.print_scoreboard_new(1, 1, 0);
+				extended_scoreboard_new(player1, 0, player2, 1, 1);
+				player1.choose_swap();
+				break;
+			case 11:
+				extended_scoreboard_new(player1, 1, player2, 1, 0);
 				system("pause");
-				std::cout << "\n";
+				break;
+			case 21:
+				extended_scoreboard_new(player1, 2, player2, 1, 1);
+				player1.choose_combo(1);
+				break;
 			}
+			system("pause");
+			std::cout << "\n";
 		}
 
 		std::cout << "Player 2's turn:\n\n";
 		while (player2.roll_left > 0)
 		{
 			player2.roll_dice();
-
-			player2.print_scoreboard(1);
-			extended_scoreboard(player1, player2, 1);
-
-			player2.choose_swap();
-
-			if (i < 12)
+			switch (player2.yahtzee_check_new(1))
 			{
+			case 0:
+				player2.print_scoreboard_new(1, 1, 0);
+				extended_scoreboard_new(player1, 1, player2, 0, 1);
+				player2.choose_swap();
+				break;
+			case 11:
+				extended_scoreboard_new(player1, 1, player2, 1, 0);
 				system("pause");
-				std::cout << "\n";
+				break;
+			case 21:
+				extended_scoreboard_new(player1, 1, player2, 2, 1);
+				player2.choose_combo(1);
+				break;
 			}
+			system("pause");
+			std::cout << "\n";
 		}
 	}
 	scores[0] = player1.total_score();

@@ -86,9 +86,9 @@ bool Leaderboard::update(int score, bool mode, bool player_id)
 		}
 	}
 	writeto.close();
-	std::cout << "\n";
 	if (done)
 	{
+		std::cout << "\n";
 		return 1;
 	}
 	return 0;
