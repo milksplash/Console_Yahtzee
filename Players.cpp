@@ -6,7 +6,24 @@
 #include "Players.h"
 #include "Options.h"
 
-//Private
+void Players::roll_dice()
+{
+	int no_dice = no_rolling_dice();
+
+	for (int i = 0; i < no_dice; i++)
+	{
+		dice[i].side = rand() % 6 + 1;
+	}
+
+	sort_dice();
+	print_dice();
+	update_T_dice();
+
+	roll_left--;
+
+	std::cout << "You have " << roll_left << " roll(s) left.\n\n";
+
+}
 void Players::update_T_dice()
 {
 	int temp = 0;
@@ -106,6 +123,40 @@ void Players::choose_combo(bool myahtzee)
 		}
 		break;
 	}
+}
+void Players::choose_swap(bool myahtzee)
+{
+	if (roll_left == 0)
+	{
+		choose_combo(myahtzee);
+		return;
+	}
+	std::cout << "Choose a die to hold/free: ";
+	int die;
+	std::cin >> die;
+	std::cout << "\n";
+	if (die == 0)
+	{
+		choose_combo(myahtzee);
+		return;
+	}
+	if (die == 14)
+	{
+		if (roll_left == 0)
+		{
+			std::cout << "You have no roll left this round! You must choose a combination.\n\n";
+			choose_combo(myahtzee);
+			return;
+		}
+		return;
+	}
+	if (die > 5)
+	{
+		choose_swap(myahtzee);
+		return;
+	}
+	swap_dice(die - 1);
+	choose_swap(myahtzee);
 }
 int Players::get_combo_score(int combo, bool myahtzee)
 {
@@ -267,27 +318,6 @@ bool Players::straight_check(int i,int j)
 	}
 	return 1;
 }
-
-//Public
-void Players::roll_dice()
-{
-	int no_dice = no_rolling_dice();
-
-	for (int i = 0; i < no_dice; i++)
-	{
-		dice[i].side = rand() % 6 + 1;
-	}
-
-	sort_dice();
-	print_dice();
-	update_T_dice();
-
-	roll_left--;
-
-	std::cout << "You have " << roll_left << " roll(s) left.\n\n";
-
-}
-
 void Players::print_scoreboard_new(bool size, bool instr, int score)
 {
 	/*
@@ -320,42 +350,6 @@ void Players::print_scoreboard_new(bool size, bool instr, int score)
 		std::cout << "\n\n";
 	}
 }
-void Players::print_scoreboard(int mode)
-{
-	/*
-	0 = default for singleplayer
-	1 = multiplayer/bot
-	2 = do not display instruction
-	3 = multiple yahtzee superset mode
-	*/
-	if (mode != 2)
-	{
-		std::cout << "\t<1>\t<2>\t<3>\t<4>\t<5>\t<6>\t\t\t<7>\t<8>\t<9>\t<10>\t<11>\t<12>\t<13>\n";
-	}
-	std::cout << "\tOnes\tTwos\tThrees\tFours\tFives\tSixes\tSum\tBonus\tToak\tFoak\tFh\tSs\tLs\tC.\tY.\tTotal\n";
-	std::cout << "========================================================================================================================================\n";
-	if (mode == 0)
-	{
-		std::cout << "You\t";
-		print_scoreboard_values();
-		std::cout << total_score();
-		std::cout << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
-	}
-	if (mode == 2)
-	{
-		std::cout << "You\t";
-		print_scoreboard_values(1);
-		std::cout << total_score() << "\n\n";
-	}
-	if (mode == 3)
-	{
-		std::cout << "You\t";
-		print_scoreboard_values(2);
-		std::cout << total_score();
-		std::cout << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
-	}
-}
-
 void Players::print_scoreboard_values(int mode)
 {
 	/*
@@ -392,40 +386,6 @@ void Players::print_scoreboard_values(int mode)
 		std::cout << "\t";
 	}
 }
-void Players::choose_swap(bool myahtzee)
-{
-	if (roll_left == 0)
-	{
-		choose_combo(myahtzee);
-		return;
-	}
-	std::cout << "Choose a die to hold/free: ";
-	int die;
-	std::cin >> die;
-	std::cout << "\n";
-	if (die == 0)
-	{
-		choose_combo(myahtzee);
-		return;
-	}
-	if (die == 14)
-	{
-		if (roll_left == 0)
-		{
-			std::cout << "You have no roll left this round! You must choose a combination.\n\n";
-			choose_combo(myahtzee);
-			return;
-		}
-		return;
-	}
-	if (die > 5)
-	{
-		choose_swap(myahtzee);
-		return;
-	}
-	swap_dice(die - 1);
-	choose_swap(myahtzee);
-}
 void Players::reset_dice()
 {
 	dice =
@@ -459,7 +419,6 @@ int	Players::total_score(bool sum)
 	}
 	return score;
 }
-
 int Players::yahtzee_check_new(bool mode)
 {
 	/*
@@ -519,66 +478,6 @@ int Players::yahtzee_check_new(bool mode)
 				{
 					return 21;
 				}
-				return 2;
-			}
-		}
-	}
-	return 0;
-}
-int Players::yahtzee_check(bool mode)
-{
-	/*
-	mode 0: singleplayer
-	mode 1: multiplayer
-	return 0: there is no multiple yahtzee
-	return 1: there is a multiple yahtzee, corresponding upper category not filled
-	return 2: there is a multiple yahtzee, corresponding upper category filled
-	*/
-	if (find_side_count(5) > 0)
-	{
-		std::cout << "Yahtzee!\n\n";
-		if (scores[12].taken == 1)
-		{
-			std::cout << "You have rolled more than one Yahtzee!\nYou have earned an extra 100 scores.\n\n";
-			scores[12].score += 100;
-			int p = std::find(T_dice.begin(), T_dice.end(), 5) - T_dice.begin();
-			if (scores[p].taken == 0)
-			{
-				std::string N;
-				switch (p)
-				{
-				case 0:
-					N = "Ones";
-					break;
-				case 1:
-					N = "Twos";
-					break;
-				case 2:
-					N = "Threes";
-					break;
-				case 3:
-					N = "Fours";
-					break;
-				case 4:
-					N = "Fives";
-					break;
-				case 5:
-					N = "Sixes";
-					break;
-				}
-				std::cout << N << " has not been taken yet. Category " << N << " must be and has been taken for you.\n\n";
-				scores[p].score = get_combo_score(p);
-				scores[p].taken = 1;
-				print_scoreboard(2);
-				roll_left = 0;
-				system("pause");
-				return 1;
-			}
-			else
-			{
-				std::cout << "You can also select any category that is not filled yet.\n\n";
-				print_scoreboard(3);
-				choose_combo(1);
 				return 2;
 			}
 		}

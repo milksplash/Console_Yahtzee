@@ -113,21 +113,6 @@ int playbot()
 	return score;
 }
 
-void extended_scoreboard(Players player1, Players player2, bool mode)
-{
-	/*
-	scoreboard plugin to modify scoreboard for use of multiplayer
-	mode 0 = Player 1 is in control
-	mode 1 = Player 2 is in control
-	*/
-	std::cout << "P1\t";
-	player1.print_scoreboard_values(mode);
-	std::cout << player1.total_score() << "\n";
-	std::cout << "P2\t";
-	player2.print_scoreboard_values(!mode);
-	std::cout << player2.total_score() << "\n\n<0>: toggle between selecting die and choosing combination\n<14>: roll die(s)\n\n";
-}
-
 void extended_scoreboard_new(Players player1, int player1_mode, Players player2, int player2_mode, bool instr)
 {
 	/*

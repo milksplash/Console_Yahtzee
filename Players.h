@@ -36,11 +36,14 @@ class Players
 	};
 	std::vector<Dice> dice;
 	std::vector<int> T_dice = { 0,0,0,0,0,0 };
+	int roll_left = 3;
 	Options options;	//temp solution to options setting
+	void roll_dice();
 	void update_T_dice();
 	int side_total();
-	void choose_combo(bool myahtzee = 0);
 	void update_combo(int combo, bool myahtzee = 0);
+	void choose_combo(bool myahtzee = 0);
+	void choose_swap(bool myahtzee = 0);
 	int get_combo_score(int combo, bool myahtzee = 0);
 	void swap_dice(int die);
 	void sort_dice();
@@ -49,22 +52,17 @@ class Players
 	int bonus();
 	int find_side_count(int ele);
 	bool straight_check(int i = 1, int j = 4);
-public:
-	int roll_left = 3;
-	void roll_dice();
 	void print_scoreboard_new(bool size = 0, bool instr = 1, int score = 0);
-	void print_scoreboard(int mode = 0);
 	void print_scoreboard_values(int mode = 0);
-	void choose_swap(bool myahtzee = 0);
 	void reset_dice();
 	int total_score(bool sum = 0);
 	int yahtzee_check_new(bool mode = 0);
-	int yahtzee_check(bool mode = 0);
 
 	friend class Debug;
 	friend int playsingle();
 	friend std::vector<int> playmulti();
 	friend int playbot();
+	friend void extended_scoreboard_new(Players player1, int player1_mode, Players player2, int player2_mode, bool instr);
 };
 
 #endif
