@@ -5,3 +5,4 @@ Console_Yahtzee.vcxproj.filters
 Console_Yahtzee.vcxproj.user
 Debug/
 *.txt
+.vscode/
