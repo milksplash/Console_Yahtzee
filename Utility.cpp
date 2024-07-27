@@ -1,6 +1,5 @@
 #include <iostream>
-#include "Header.h"
-#include "Players.h"
+#include <fstream>
 
 void print_logo()
 {
@@ -16,28 +15,14 @@ void print_logo()
                                                                )" << "\n\n";
 }
 
-int playsingle()
+bool read_error(std::string filename)
 {
-	Players player1;
-	
-	for (int i = 0; i < 13; i++) //13 rounds
+	std::ifstream readfrom(filename);
+	if (!readfrom.is_open())
 	{
-		player1.reset_dice();
-		player1.roll_left = 3;
-		while (player1.roll_left > 0) //3 rolls a round
-		{
-			std::cout << "Round " << i + 1 << ":\n";
-			player1.roll_dice();
-			player1.print_scoreboard();
-			player1.choose_swap();
-			if (i < 12)
-			{
-				system("pause");
-				std::cout << "\n";
-			}
-		}
+		readfrom.close();
+		return 1;
 	}
-	int score = player1.total_score();
-	std::cout << "Your final score is " << score << "!\n\n";
-	return score;
-} 
+	readfrom.close();
+	return 0;
+}
